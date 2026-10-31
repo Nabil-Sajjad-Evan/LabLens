@@ -83,13 +83,14 @@ Put each screen in its own folder, for example `app/plan/page.tsx`. Do not put t
 
 Found in `components/`. Use them as they are. If you need a change, message Evan.
 
-- `Screen`: wraps every screen (header on top, tabs at the bottom, phone-width column). Start every page with it: `<Screen active="Trends" showAccount>...</Screen>`. Leave out `active` for screens without tabs.
+- `Screen`: wraps every screen (header on top, tabs at the bottom, phone-width column). Start every page with it: `<Screen active="Trends">...</Screen>`. Leave out `active` for screens without tabs. To push a button to the bottom of a short screen, put `<div className="min-h-6 flex-1" />` above it.
 - `PageTitle`, `SectionTitle`, `Meta` (in `Headings.tsx`): the big title, the section title and the grey line under a title.
 - `ResultRow`: one lab result. `<ResultRow result={results[0]} />`, or `showBar={false}` for the shorter row.
 - `StatusBanner`: the full-width coloured block at the top of summary screens. `tone` is `"info"` (indigo), `"urgent"` (red) or `"ok"` (green); `counts={{ low: 8, high: 3, normal: 5 }}` adds the numbers and the bar.
 - `StatusTag`, `RangeBar`: the small parts inside `ResultRow`. Use them on their own only if you need to.
 - `PrimaryButton`, `SecondaryButton`: big buttons. Give an `href` to link to another screen, or an `onClick` for an action.
-- `TextLink`: bold underlined link with a big tap area (`danger` makes it red).
+- `TextLink`: bold underlined link with a big tap area (`danger` makes it red, `muted` makes it grey for Cancel).
+- `TipList`: a plain list of short lines separated by thin lines. `<TipList items={["First tip", "Second tip"]} />`.
 - `Note`: grey disclaimer box.
 - `AppHeader`, `BottomNav`: used inside `Screen`. You normally do not use them directly.
 
