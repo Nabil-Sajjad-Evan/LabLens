@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* LabLens design tokens. See PROJECT_BRIEF.md section 3.
+   Use them as Tailwind classes, for example: text-ink, bg-tint, border-rule, text-low, bg-low-bg. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ink: #1f1d36;
+  --color-brand: #3a3485;
+  --color-muted: #55526b;
+  --color-rule: #dad8e6;
+  --color-tint: #f2f1f8;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-low: #1f5aa6;
+  --color-low-bg: #e4edf9;
+  --color-high: #97480a;
+  --color-high-bg: #fcebd6;
+  --color-urgent: #a81f1f;
+  --color-urgent-bg: #fbe6e4;
+  --color-ok: #1f6b4f;
+  --color-ok-bg: #e2f2ea;
+  --color-zone: #bfe0cf;
+  --color-warn: #8a3f00;
+  --color-warn-bg: #fff1de;
+
+  /* Atkinson Hyperlegible for UI text, Literata for headings, numbers and dates */
+  --font-sans: var(--font-atkinson), system-ui, sans-serif;
+  --font-serif: var(--font-literata), Georgia, serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem; /* 17px body text */
+  line-height: 1.5;
+}
+
+/* A clear outline for keyboard users */
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
 }
