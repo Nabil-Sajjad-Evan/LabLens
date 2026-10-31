@@ -83,7 +83,21 @@ Put each screen in its own folder, for example `app/plan/page.tsx`. Do not put t
 
 Found in `components/`. Use them as they are. If you need a change, message Evan.
 
-`AppHeader`, `BottomNav`, `StatusTag` (Low/High/Normal/Urgent), `RangeBar`, `ResultRow`, `StatusBanner` (the full-width coloured block at the top of summary screens), `PrimaryButton`, `SecondaryButton`, `TextLink`, `Note` (grey disclaimer box).
+- `Screen`: wraps every screen (header on top, tabs at the bottom, phone-width column). Start every page with it: `<Screen active="Trends" showAccount>...</Screen>`. Leave out `active` for screens without tabs.
+- `PageTitle`, `SectionTitle`, `Meta` (in `Headings.tsx`): the big title, the section title and the grey line under a title.
+- `ResultRow`: one lab result. `<ResultRow result={results[0]} />`, or `showBar={false}` for the shorter row.
+- `StatusBanner`: the full-width coloured block at the top of summary screens. `tone` is `"info"` (indigo), `"urgent"` (red) or `"ok"` (green); `counts={{ low: 8, high: 3, normal: 5 }}` adds the numbers and the bar.
+- `StatusTag`, `RangeBar`: the small parts inside `ResultRow`. Use them on their own only if you need to.
+- `PrimaryButton`, `SecondaryButton`: big buttons. Give an `href` to link to another screen, or an `onClick` for an action.
+- `TextLink`: bold underlined link with a big tap area (`danger` makes it red).
+- `Note`: grey disclaimer box.
+- `AppHeader`, `BottomNav`: used inside `Screen`. You normally do not use them directly.
+
+Helpers: `lib/sample-data.ts` (data, `getStatus`, `markerPosition`) and `lib/format.ts` (`formatValue`, `formatRange`).
+
+Colours are Tailwind classes: `text-ink`, `text-brand`, `text-muted`, `bg-tint`, `border-rule`, `text-low`, `bg-low-bg`, `text-high`, `bg-high-bg`, `text-urgent`, `text-ok`, `bg-ok-bg`, `text-warn`, `bg-warn-bg`. Fonts: normal text is Atkinson already; add `font-serif` for headings, numbers, dates and normal-range text.
+
+To see every component working, run `npm run dev` and open http://localhost:3000/preview. Copy the way `app/preview/page.tsx` uses them.
 
 If a shared component you need does not exist yet, build a simple version inside your own screen's folder and tell Evan.
 
