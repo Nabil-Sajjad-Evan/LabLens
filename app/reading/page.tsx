@@ -4,10 +4,12 @@ import Screen from "@/components/Screen";
 import { PageTitle } from "@/components/Headings";
 import TextLink from "@/components/TextLink";
 import Step from "./Step";
+import AutoAdvance from "./AutoAdvance";
 
 export default function ReadingPage() {
   return (
     <Screen>
+      <AutoAdvance />
       <PageTitle>Reading your report</PageTitle>
       <p className="mt-2.5 text-[1.0625rem] leading-relaxed text-muted">
         This usually takes less than a minute. Please keep this page open.
