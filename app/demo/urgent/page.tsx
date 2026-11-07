@@ -14,12 +14,12 @@ export default function UrgentResultPage() {
 
   return (
     <Screen active="Reports" showAccount>
-      {/* Full-width Red Urgent Banner sitting right below the header line */}
-      <div className="-mx-5 mt-0 bg-[#A4201E] px-5 py-6 text-white">
+      {/* Full-width Red Urgent Banner */}
+      <div className="-mx-5 mt-0 bg-urgent px-5 py-6 text-white">
         <h1 className="font-serif text-[1.75rem] font-bold leading-tight">
           Please see a doctor as soon as you can
         </h1>
-        <p className="mt-3 font-serif text-[1.0625rem] leading-snug text-white/95">
+        <p className="mt-3 font-sans text-[1.0625rem] leading-snug text-white/95">
           One result is very far from normal levels. Do not wait for your next test.
         </p>
       </div>
@@ -35,16 +35,21 @@ export default function UrgentResultPage() {
       <div className="mt-4 border-b border-rule pb-5">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-[1.125rem] font-bold text-ink">Platelet count</h3>
-            <div className="mt-2 inline-flex items-center gap-1 rounded bg-[#A4201E] px-2 py-0.5 text-[0.875rem] font-bold text-white">
+            <h3 className="font-sans text-[1.125rem] font-bold text-ink">
+              Platelet count
+            </h3>
+            <div className="mt-2 inline-flex items-center gap-1 rounded bg-urgent px-2 py-0.5 font-sans text-[0.875rem] font-bold text-white">
               <span>!</span>
               <span>Urgent</span>
             </div>
           </div>
 
           <div className="text-right">
-            <div className="font-serif text-[1.75rem] font-bold leading-none text-[#A4201E]">
-              18,000 <span className="font-sans text-[0.875rem] font-normal text-muted">/Cmm</span>
+            <div className="font-serif text-[1.75rem] font-bold leading-none text-urgent">
+              18,000{" "}
+              <span className="font-sans text-[0.875rem] font-normal text-muted">
+                /Cmm
+              </span>
             </div>
             <p className="mt-2 font-serif text-[0.9375rem] text-muted">
               Normal: 1,50,000 – 4,50,000
@@ -54,18 +59,18 @@ export default function UrgentResultPage() {
 
         {/* Range bar with Red indicator */}
         <div className="relative mt-4 h-2 w-full rounded-full bg-rule">
-          {/* Normal range green segment */}
+          {/* Normal range segment */}
           <div
-            className="absolute top-0 bottom-0 rounded-full bg-[#B2D8C6]"
+            className="absolute top-0 bottom-0 rounded-full bg-zone"
             style={{ left: "25%", width: "50%" }}
           />
 
           {/* Red target indicator for 18,000 */}
           <div
-            className="absolute top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#A4201E] bg-white shadow-sm"
+            className="absolute top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border-2 border-urgent bg-white shadow-sm"
             style={{ left: "2%" }}
           >
-            <div className="h-2 w-2 rounded-full bg-[#A4201E]" />
+            <div className="h-2 w-2 rounded-full bg-urgent" />
           </div>
         </div>
       </div>
@@ -78,7 +83,7 @@ export default function UrgentResultPage() {
           </h2>
         </div>
 
-        <div className="divide-y divide-rule font-serif text-[1.0625rem] leading-relaxed text-ink">
+        <div className="divide-y divide-rule font-sans text-[1.0625rem] leading-relaxed text-ink">
           <p className="py-4">Contact a doctor or go to a hospital today.</p>
           <p className="py-4">
             Take your report with you. You can print this page.
@@ -91,7 +96,7 @@ export default function UrgentResultPage() {
         <button
           type="button"
           onClick={handlePrint}
-          className="flex h-12 w-full items-center justify-center rounded-lg bg-brand font-bold text-white transition-opacity hover:opacity-90 active:opacity-80"
+          className="flex h-12 w-full items-center justify-center rounded-lg bg-brand font-sans font-bold text-white transition-opacity hover:opacity-90 active:opacity-80"
         >
           Print a summary for my doctor
         </button>
@@ -103,7 +108,7 @@ export default function UrgentResultPage() {
       </div>
 
       {/* Disclaimer footnote */}
-      <p className="mt-6 font-serif text-[0.9375rem] leading-relaxed text-muted">
+      <p className="mt-6 font-sans text-[0.9375rem] leading-relaxed text-muted">
         Sample result for illustration. This is an automated summary, not a
         diagnosis. Only a doctor can tell you what it means.
       </p>
