@@ -1,7 +1,7 @@
 // app/trends/TrendsChart.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -25,26 +25,28 @@ function CustomizedLabel({ x = 0, y = 0, value }: CustomizedLabelProps) {
   return (
     <text
       x={x}
-      y={y + 22}
+      y={y + 24}
       textAnchor="middle"
       className="font-serif font-bold text-ink text-[1.0625rem]"
-      fill="#1f1d36"
+      fill="var(--color-ink)"
     >
       {value.toFixed(1)}
     </text>
   );
 }
 
+const emptySubscribe = () => () => {};
+
 export default function TrendsChart() {
-  const [mounted, setMounted] = useState(false);
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
+  if (!isClient) {
     return (
-      <div className="h-48 w-full animate-pulse rounded bg-tint flex items-center justify-center text-muted">
+      <div className="h-[16.25rem] w-full animate-pulse rounded bg-tint flex items-center justify-center text-muted">
         Loading chart...
       </div>
     );
@@ -56,23 +58,23 @@ export default function TrendsChart() {
   }));
 
   return (
-    <div className="relative mt-4 h-48 w-full select-none">
+    <div className="relative mt-4 h-[16.25rem] w-full select-none">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={chartData}
-          margin={{ top: 12, right: 10, left: -22, bottom: 20 }}
+          margin={{ top: 16, right: 28, left: -22, bottom: 20 }}
         >
           {/* Normal range green zone */}
           <ReferenceArea
             y1={hbNormal.low}
             y2={hbNormal.high}
-            fill="#BFE0CF"
+            fill="var(--color-zone)"
             fillOpacity={0.7}
           >
             <Label
               value={`Normal ${hbNormal.low} – ${hbNormal.high}`}
               position="insideRight"
-              fill="#1F6B4F"
+              fill="var(--color-ok)"
               className="text-[0.875rem] font-bold"
               style={{ fontWeight: 700 }}
               offset={10}
@@ -82,32 +84,36 @@ export default function TrendsChart() {
           {/* Subtle grid lines for scale */}
           <CartesianGrid
             vertical={false}
-            stroke="#DAD8E6"
+            stroke="var(--color-rule)"
             strokeDasharray="0"
           />
 
           <YAxis
-            domain={[8, 17]}
+            domain={[7, 18]}
             ticks={[8, 10, 12, 14, 16]}
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "#55526B", fontSize: 13 }}
+            tick={{ fill: "var(--color-muted)", fontSize: 13 }}
           />
 
           <XAxis
             dataKey="month"
-            axisLine={{ stroke: "#1F1D36", strokeWidth: 1.5 }}
+            axisLine={{ stroke: "var(--color-ink)", strokeWidth: 1.5 }}
             tickLine={false}
-            tick={{ fill: "#55526B", fontSize: 14 }}
+            tick={{ fill: "var(--color-muted)", fontSize: 14 }}
             dy={8}
           />
 
           <Line
             type="linear"
             dataKey="value"
-            stroke="#3A3485"
+            stroke="var(--color-brand)"
             strokeWidth={3}
-            dot={{ r: 5, fill: "#3A3485", stroke: "#3A3485" }}
+            dot={{
+              r: 5,
+              fill: "var(--color-brand)",
+              stroke: "var(--color-brand)",
+            }}
             label={<CustomizedLabel />}
             isAnimationActive={false}
           />

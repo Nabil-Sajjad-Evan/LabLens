@@ -79,7 +79,7 @@ export default function PlanPage() {
                     className={`flex size-6 flex-none items-center justify-center rounded-full border-2 transition-colors ${
                       isChecked
                         ? "border-brand bg-brand text-white"
-                        : "border-rule bg-white"
+                        : "border-muted bg-white"
                     }`}
                   >
                     {isChecked && (

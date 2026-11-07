@@ -4,7 +4,7 @@ import Screen from "@/components/Screen";
 import { PageTitle } from "@/components/Headings";
 import SecondaryButton from "@/components/SecondaryButton";
 import TextLink from "@/components/TextLink";
-import BottomNav from "@/components/BottomNav";
+import BottomNav, { type NavTab } from "@/components/BottomNav";
 import { user } from "@/lib/sample-data";
 
 export default function AccountPage() {
@@ -51,7 +51,7 @@ export default function AccountPage() {
 
       {/* Bottom navigation with no tab active */}
       <div className="-mx-5 -mb-7 mt-auto">
-        <BottomNav active={"" as any} />
+        <BottomNav active={"" as unknown as NavTab} />
       </div>
     </Screen>
   );
