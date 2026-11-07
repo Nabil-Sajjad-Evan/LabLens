@@ -12,14 +12,14 @@ export default function AllNormalDemoPage() {
       <div className="pt-1">
         <Link
           href="/reports"
-          className="inline-flex items-center gap-1 font-serif text-[1rem] font-bold text-brand hover:underline"
+          className="inline-flex items-center gap-1 font-sans text-[1rem] font-bold text-brand hover:underline"
         >
           <span className="text-base leading-none">‹</span> All reports
         </Link>
       </div>
 
       {/* Screen Title & Subtitle */}
-      <h1 className="mt-3 font-serif text-[1.875rem] font-bold text-ink">
+      <h1 className="mt-3 font-serif text-[1.875rem] font-bold leading-tight text-ink">
         Report summary
       </h1>
       <p className="mt-1 font-serif text-[1.0625rem] text-ink">
@@ -27,11 +27,11 @@ export default function AllNormalDemoPage() {
       </p>
 
       {/* All Normal Green Banner */}
-      <div className="-mx-5 mt-5 bg-[#1B6B45] px-5 py-6 text-white">
+      <div className="-mx-5 mt-5 bg-ok px-5 py-6 text-white">
         <h2 className="font-serif text-[1.625rem] font-bold leading-tight">
           All your results are within normal levels
         </h2>
-        <p className="mt-3 font-serif text-[1.0625rem] leading-snug text-white/95">
+        <p className="mt-3 font-sans text-[1.0625rem] leading-snug text-white/95">
           Nothing on this report is outside normal levels.
         </p>
 
@@ -39,12 +39,12 @@ export default function AllNormalDemoPage() {
           <div className="font-serif text-[2.25rem] font-bold leading-none">
             16
           </div>
-          <div className="mt-2 flex items-center gap-2 font-serif text-[1rem] text-white/95">
-            <span className="h-2 w-2 rounded-full bg-[#7FD3A6]" />
+          <div className="mt-2 flex items-center gap-2 font-sans text-[1rem] text-white/95">
+            <span className="h-2 w-2 rounded-full bg-zone" />
             <span>Normal</span>
           </div>
           {/* Solid full green progress indicator bar */}
-          <div className="mt-3 h-2 w-full rounded-full bg-[#7FD3A6]" />
+          <div className="mt-3 h-2 w-full rounded-full bg-zone" />
         </div>
       </div>
 
@@ -60,15 +60,17 @@ export default function AllNormalDemoPage() {
         <div className="border-b border-rule py-4">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="text-[1.125rem] font-bold text-ink">Haemoglobin</h3>
-              <div className="mt-2 inline-flex items-center gap-1.5 rounded bg-[#E3F2E9] px-2 py-0.5 text-[0.875rem] font-medium text-[#1B6B45]">
+              <h3 className="font-sans text-[1.125rem] font-bold text-ink">
+                Haemoglobin
+              </h3>
+              <div className="mt-2 inline-flex items-center gap-1.5 rounded bg-ok-bg px-2 py-0.5 font-sans text-[0.875rem] font-medium text-ok">
                 <span className="text-xs">✓</span>
                 <span>Normal</span>
               </div>
             </div>
 
             <div className="text-right">
-              <div className="font-serif text-[1.625rem] font-bold leading-none text-[#1B6B45]">
+              <div className="font-serif text-[1.625rem] font-bold leading-none text-ok">
                 14.6{" "}
                 <span className="font-sans text-[0.875rem] font-normal text-muted">
                   g/dl
@@ -83,14 +85,14 @@ export default function AllNormalDemoPage() {
           {/* Haemoglobin Range Bar with centered marker */}
           <div className="relative mt-4 h-2 w-full rounded-full bg-rule">
             <div
-              className="absolute top-0 bottom-0 rounded-full bg-[#B2D8C6]"
+              className="absolute top-0 bottom-0 rounded-full bg-zone"
               style={{ left: "25%", width: "45%" }}
             />
             <div
-              className="absolute top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#1B6B45] bg-white shadow-sm"
+              className="absolute top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border-2 border-ok bg-white shadow-sm"
               style={{ left: "55%" }}
             >
-              <div className="h-2 w-2 rounded-full bg-[#1B6B45]" />
+              <div className="h-2 w-2 rounded-full bg-ok" />
             </div>
           </div>
         </div>
@@ -99,17 +101,17 @@ export default function AllNormalDemoPage() {
         <div className="border-b border-rule py-4">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="text-[1.125rem] font-bold text-ink">
+              <h3 className="font-sans text-[1.125rem] font-bold text-ink">
                 Platelet count
               </h3>
-              <div className="mt-2 inline-flex items-center gap-1.5 rounded bg-[#E3F2E9] px-2 py-0.5 text-[0.875rem] font-medium text-[#1B6B45]">
+              <div className="mt-2 inline-flex items-center gap-1.5 rounded bg-ok-bg px-2 py-0.5 font-sans text-[0.875rem] font-medium text-ok">
                 <span className="text-xs">✓</span>
                 <span>Normal</span>
               </div>
             </div>
 
             <div className="text-right">
-              <div className="font-serif text-[1.625rem] font-bold leading-none text-[#1B6B45]">
+              <div className="font-serif text-[1.625rem] font-bold leading-none text-ok">
                 2,40,000{" "}
                 <span className="font-sans text-[0.875rem] font-normal text-muted">
                   /Cmm
@@ -124,14 +126,14 @@ export default function AllNormalDemoPage() {
           {/* Platelet Range Bar with centered marker */}
           <div className="relative mt-4 h-2 w-full rounded-full bg-rule">
             <div
-              className="absolute top-0 bottom-0 rounded-full bg-[#B2D8C6]"
+              className="absolute top-0 bottom-0 rounded-full bg-zone"
               style={{ left: "25%", width: "48%" }}
             />
             <div
-              className="absolute top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#1B6B45] bg-white shadow-sm"
+              className="absolute top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border-2 border-ok bg-white shadow-sm"
               style={{ left: "44%" }}
             >
-              <div className="h-2 w-2 rounded-full bg-[#1B6B45]" />
+              <div className="h-2 w-2 rounded-full bg-ok" />
             </div>
           </div>
         </div>
@@ -148,17 +150,17 @@ export default function AllNormalDemoPage() {
           LabLens Insights
         </h2>
 
-        <p className="mt-3 font-serif text-[1.0625rem] leading-relaxed text-ink">
+        <p className="mt-3 font-sans text-[1.0625rem] leading-relaxed text-ink">
           All 16 results LabLens could read are within normal levels.
         </p>
 
-        <p className="mt-4 font-serif text-[1.0625rem] leading-relaxed text-ink">
+        <p className="mt-4 font-sans text-[1.0625rem] leading-relaxed text-ink">
           A normal report does not rule out every health problem. If you feel
           unwell, talk to your doctor.
         </p>
 
         {/* Disclaimer box */}
-        <div className="mt-6 rounded-lg bg-[#F3F4F6] p-4 text-[0.9375rem] leading-relaxed text-ink">
+        <div className="mt-6 rounded-lg bg-tint p-4 font-sans text-[0.9375rem] leading-relaxed text-ink">
           Automated summary for general information. It is not a diagnosis.
           Always check with your doctor.
         </div>
