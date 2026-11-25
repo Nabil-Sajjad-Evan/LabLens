@@ -78,14 +78,103 @@ export const urgentResult: LabResult = {
   criticalLow: 20000,
 };
 
+export type TrendPoint = {
+  date: string;
+  month: string;
+  value: number;
+  lab: string;
+  printedAs: string;
+};
+
+export type TestTrendData = {
+  name: string;
+  unit: string;
+  normal: { low: number; high: number };
+  yDomain: [number, number];
+  yTicks: number[];
+  headline: string;
+  insight: string;
+  readings: TrendPoint[];
+};
+
 // Haemoglobin over time (Trends screen). "printedAs" is how that lab wrote the test name.
-export const hbTrend = [
+export const hbTrend: TrendPoint[] = [
   { date: "12 Jan 2026", month: "Jan", value: 9.8, lab: "Lab A", printedAs: "Haemoglobin" },
   { date: "9 Apr 2026", month: "Apr", value: 10.4, lab: "Lab B", printedAs: "Hb" },
   { date: "14 Jul 2026", month: "Jul", value: 11.1, lab: "Lab B", printedAs: "HGB" },
   { date: "7 Oct 2026", month: "Oct", value: 11.8, lab: "Lab A", printedAs: "Haemoglobin" },
 ];
 export const hbNormal = { low: 13, high: 17 };
+
+// Platelets trend over time
+export const pltTrend: TrendPoint[] = [
+  { date: "12 Jan 2026", month: "Jan", value: 120000, lab: "Lab A", printedAs: "Platelets" },
+  { date: "9 Apr 2026", month: "Apr", value: 126000, lab: "Lab B", printedAs: "PLT" },
+  { date: "14 Jul 2026", month: "Jul", value: 130000, lab: "Lab B", printedAs: "Platelet count" },
+  { date: "7 Oct 2026", month: "Oct", value: 135000, lab: "Lab A", printedAs: "Platelets" },
+];
+export const pltNormal = { low: 150000, high: 450000 };
+
+// ESR trend over time
+export const esrTrend: TrendPoint[] = [
+  { date: "12 Jan 2026", month: "Jan", value: 48, lab: "Lab A", printedAs: "ESR" },
+  { date: "9 Apr 2026", month: "Apr", value: 43, lab: "Lab B", printedAs: "E.S.R." },
+  { date: "14 Jul 2026", month: "Jul", value: 39, lab: "Lab B", printedAs: "Sedimentation Rate" },
+  { date: "7 Oct 2026", month: "Oct", value: 36, lab: "Lab A", printedAs: "ESR" },
+];
+export const esrNormal = { low: 0, high: 10 };
+
+// Neutrophils trend over time
+export const neuTrend: TrendPoint[] = [
+  { date: "12 Jan 2026", month: "Jan", value: 86, lab: "Lab A", printedAs: "Neutrophils" },
+  { date: "9 Apr 2026", month: "Apr", value: 83, lab: "Lab B", printedAs: "Polymorphs" },
+  { date: "14 Jul 2026", month: "Jul", value: 81, lab: "Lab B", printedAs: "NEUT" },
+  { date: "7 Oct 2026", month: "Oct", value: 80, lab: "Lab A", printedAs: "Neutrophils" },
+];
+export const neuNormal = { low: 40, high: 75 };
+
+export const trendsData: Record<string, TestTrendData> = {
+  Haemoglobin: {
+    name: "Haemoglobin",
+    unit: "g/dl",
+    normal: hbNormal,
+    yDomain: [7, 18],
+    yTicks: [8, 10, 12, 14, 16],
+    headline: "Your haemoglobin is going up.",
+    insight: "Latest: 11.8, up from 11.1 in July. Still lower than normal levels.",
+    readings: hbTrend,
+  },
+  Platelets: {
+    name: "Platelets",
+    unit: "/Cmm",
+    normal: pltNormal,
+    yDomain: [80000, 480000],
+    yTicks: [100000, 200000, 300000, 400000],
+    headline: "Your platelet count is steadily rising.",
+    insight: "Latest: 1,35,000, up from 1,30,000 in July. Still lower than normal levels.",
+    readings: pltTrend,
+  },
+  ESR: {
+    name: "ESR",
+    unit: "mm",
+    normal: esrNormal,
+    yDomain: [0, 55],
+    yTicks: [0, 10, 20, 30, 40, 50],
+    headline: "Your ESR is gradually coming down.",
+    insight: "Latest: 36, down from 39 in July. Still higher than normal levels.",
+    readings: esrTrend,
+  },
+  Neutrophils: {
+    name: "Neutrophils",
+    unit: "%",
+    normal: neuNormal,
+    yDomain: [35, 95],
+    yTicks: [40, 50, 60, 70, 80, 90],
+    headline: "Your neutrophils are steadily improving.",
+    insight: "Latest: 80%, down from 81% in July. Still a little higher than normal levels.",
+    readings: neuTrend,
+  },
+};
 
 // Your reports screen
 export const reportHistory = [
