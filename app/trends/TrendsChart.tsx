@@ -12,16 +12,28 @@ import {
   CartesianGrid,
   Label,
 } from "recharts";
-import { hbTrend, hbNormal } from "@/lib/sample-data";
+import type { TestTrendData } from "@/lib/sample-data";
 
 interface CustomizedLabelProps {
   x?: number;
   y?: number;
   value?: number;
+  isLargeNumber?: boolean;
 }
 
-function CustomizedLabel({ x = 0, y = 0, value }: CustomizedLabelProps) {
+function CustomizedLabel({
+  x = 0,
+  y = 0,
+  value,
+  isLargeNumber = false,
+}: CustomizedLabelProps) {
   if (value === undefined) return null;
+  const labelText = isLargeNumber
+    ? `${Math.round(value / 1000)}k`
+    : Number.isInteger(value)
+    ? `${value}`
+    : value.toFixed(1);
+
   return (
     <text
       x={x}
@@ -30,14 +42,14 @@ function CustomizedLabel({ x = 0, y = 0, value }: CustomizedLabelProps) {
       className="font-serif font-bold text-ink text-[1.0625rem]"
       fill="var(--color-ink)"
     >
-      {value.toFixed(1)}
+      {labelText}
     </text>
   );
 }
 
 const emptySubscribe = () => () => {};
 
-export default function TrendsChart() {
+export default function TrendsChart({ test }: { test: TestTrendData }) {
   const isClient = useSyncExternalStore(
     emptySubscribe,
     () => true,
@@ -52,27 +64,37 @@ export default function TrendsChart() {
     );
   }
 
-  const chartData = hbTrend.map((item) => ({
+  const chartData = test.readings.map((item) => ({
     month: item.month,
     value: item.value,
   }));
+
+  const isLarge = test.normal.high >= 1000;
+  const normalLowText =
+    test.normal.low >= 1000
+      ? `${test.normal.low / 1000}k`
+      : `${test.normal.low}`;
+  const normalHighText =
+    test.normal.high >= 1000
+      ? `${test.normal.high / 1000}k`
+      : `${test.normal.high}`;
 
   return (
     <div className="relative mt-4 h-[16.25rem] w-full select-none">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={chartData}
-          margin={{ top: 16, right: 28, left: -22, bottom: 20 }}
+          margin={{ top: 16, right: 28, left: isLarge ? -10 : -22, bottom: 20 }}
         >
           {/* Normal range green zone */}
           <ReferenceArea
-            y1={hbNormal.low}
-            y2={hbNormal.high}
+            y1={test.normal.low}
+            y2={test.normal.high}
             fill="var(--color-zone)"
             fillOpacity={0.7}
           >
             <Label
-              value={`Normal ${hbNormal.low} – ${hbNormal.high}`}
+              value={`Normal ${normalLowText} – ${normalHighText}`}
               position="insideRight"
               fill="var(--color-ok)"
               className="text-[0.875rem] font-bold"
@@ -89,10 +111,11 @@ export default function TrendsChart() {
           />
 
           <YAxis
-            domain={[7, 18]}
-            ticks={[8, 10, 12, 14, 16]}
+            domain={test.yDomain}
+            ticks={test.yTicks}
             axisLine={false}
             tickLine={false}
+            tickFormatter={(v: number) => (v >= 1000 ? `${v / 1000}k` : `${v}`)}
             tick={{ fill: "var(--color-muted)", fontSize: 13 }}
           />
 
@@ -114,7 +137,7 @@ export default function TrendsChart() {
               fill: "var(--color-brand)",
               stroke: "var(--color-brand)",
             }}
-            label={<CustomizedLabel />}
+            label={<CustomizedLabel isLargeNumber={isLarge} />}
             isAnimationActive={false}
           />
         </LineChart>

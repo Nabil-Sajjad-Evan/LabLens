@@ -7,15 +7,17 @@ import Screen from "@/components/Screen";
 import { PageTitle, Meta } from "@/components/Headings";
 import PrimaryButton from "@/components/PrimaryButton";
 import TrendsChart from "./TrendsChart";
-import { hbTrend } from "@/lib/sample-data";
+import { trendsData, formatNumber } from "@/lib/sample-data";
 
 const TABS = ["Haemoglobin", "Platelets", "ESR", "Neutrophils"];
 
 export default function TrendsPage() {
   const [activeTab, setActiveTab] = useState("Haemoglobin");
 
+  const currentTest = trendsData[activeTab] ?? trendsData.Haemoglobin;
+
   // Sorted reverse chronologically (latest first) to match C8 mockup
-  const readings = [...hbTrend].reverse();
+  const readings = [...currentTest.readings].reverse();
 
   return (
     <Screen active="Trends">
@@ -44,19 +46,19 @@ export default function TrendsPage() {
       </div>
 
       {/* Chart */}
-      <TrendsChart />
+      <TrendsChart test={currentTest} />
 
       <p className="mt-3 text-[0.9375rem] text-muted">
-        Sample data for illustration. Values in g/dl.
+        Sample data for illustration. Values in {currentTest.unit}.
       </p>
 
       {/* Key insight */}
       <section className="mt-5">
         <h2 className="font-serif text-[1.375rem] font-bold text-ink">
-          Your haemoglobin is going up.
+          {currentTest.headline}
         </h2>
         <p className="mt-1 text-[1.0625rem] leading-relaxed text-ink">
-          Latest: 11.8, up from 11.1 in July. Still lower than normal.
+          {currentTest.insight}
         </p>
       </section>
 
@@ -85,7 +87,11 @@ export default function TrendsPage() {
               <span className="w-1/3 text-ink">{r.date}</span>
               <span className="w-1/2 text-muted">{r.printedAs}</span>
               <span className="w-1/6 text-right font-serif font-bold text-ink">
-                {r.value.toFixed(1)}
+                {r.value >= 1000
+                  ? formatNumber(r.value)
+                  : Number.isInteger(r.value)
+                  ? `${r.value}`
+                  : r.value.toFixed(1)}
               </span>
             </div>
           ))}
