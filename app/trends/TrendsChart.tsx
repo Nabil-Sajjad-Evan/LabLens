@@ -37,7 +37,7 @@ function CustomizedLabel({
   return (
     <text
       x={x}
-      y={y + 24}
+      y={y - 12}
       textAnchor="middle"
       className="font-serif font-bold text-ink text-[1.0625rem]"
       fill="var(--color-ink)"
@@ -84,7 +84,7 @@ export default function TrendsChart({ test }: { test: TestTrendData }) {
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={chartData}
-          margin={{ top: 16, right: 28, left: isLarge ? -10 : -22, bottom: 20 }}
+          margin={{ top: 20, right: 20, left: isLarge ? -8 : -20, bottom: 20 }}
         >
           {/* Normal range green zone */}
           <ReferenceArea
@@ -121,6 +121,7 @@ export default function TrendsChart({ test }: { test: TestTrendData }) {
 
           <XAxis
             dataKey="month"
+            padding={{ left: 20, right: 20 }}
             axisLine={{ stroke: "var(--color-ink)", strokeWidth: 1.5 }}
             tickLine={false}
             tick={{ fill: "var(--color-muted)", fontSize: 14 }}
