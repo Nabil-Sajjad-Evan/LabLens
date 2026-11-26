@@ -25,8 +25,7 @@ export default function SignInPage() {
 
       <div className="min-h-6 flex-1" />
 
-      {/* For now this goes straight to the Upload screen. Real Google sign-in comes later. */}
-      <PrimaryButton href="/upload">Continue with Google</PrimaryButton>
+        <PrimaryButton href="/login">Sign in or create account</PrimaryButton>
       <TextLink href="/check" className="mt-1.5">
         Try a sample report
       </TextLink>
