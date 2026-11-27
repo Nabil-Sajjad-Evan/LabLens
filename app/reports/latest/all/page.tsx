@@ -14,6 +14,7 @@ type TabKey = "all" | "low" | "high" | "normal";
 
 export default function AllResultsPage() {
   const [activeTab, setActiveTab] = useState<TabKey>("all");
+  const [onlyNeedsLook, setOnlyNeedsLook] = useState(false);
 
   const lowResults = results.filter((r) => getStatus(r) === "low");
   const highResults = results.filter((r) => getStatus(r) === "high");
@@ -23,12 +24,26 @@ export default function AllResultsPage() {
     return s === "low" || s === "high" || s === "urgent";
   });
 
-  const tabs: { key: TabKey; label: string; count: number }[] = [
-    { key: "all", label: "All", count: 16 },
-    { key: "low", label: "Low", count: 8 },
-    { key: "high", label: "High", count: 3 },
-    { key: "normal", label: "Normal", count: 5 },
-  ];
+  const visibleTabs: { key: TabKey; label: string; count: number }[] = onlyNeedsLook
+    ? [
+        { key: "all", label: "All", count: outsideResults.length },
+        { key: "low", label: "Low", count: lowResults.length },
+        { key: "high", label: "High", count: highResults.length },
+      ]
+    : [
+        { key: "all", label: "All", count: 16 },
+        { key: "low", label: "Low", count: 8 },
+        { key: "high", label: "High", count: 3 },
+        { key: "normal", label: "Normal", count: 5 },
+      ];
+
+  const handleToggleSwitch = () => {
+    const next = !onlyNeedsLook;
+    setOnlyNeedsLook(next);
+    if (next && activeTab === "normal") {
+      setActiveTab("all");
+    }
+  };
 
   return (
     <Screen active="Reports" showAccount>
@@ -58,9 +73,32 @@ export default function AllResultsPage() {
         16 results, {report.panel.toLowerCase()} from {report.lab}, {report.date}
       </Meta>
 
+      {/* Filter Switch */}
+      <div className="mt-4 flex items-center justify-between rounded-md border border-rule bg-tint px-3.5 py-2.5">
+        <span id="needs-look-label" className="text-[0.9375rem] font-bold text-ink">
+          Only show results that need a look
+        </span>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={onlyNeedsLook}
+          aria-labelledby="needs-look-label"
+          onClick={handleToggleSwitch}
+          className={`relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
+            onlyNeedsLook ? "bg-brand" : "bg-rule"
+          }`}
+        >
+          <span
+            className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transition-transform ${
+              onlyNeedsLook ? "translate-x-5" : "translate-x-0.5"
+            }`}
+          />
+        </button>
+      </div>
+
       {/* Filter Tabs */}
       <div className="mt-5 flex border-b border-rule" role="tablist">
-        {tabs.map((tab) => {
+        {visibleTabs.map((tab) => {
           const isActive = activeTab === tab.key;
           return (
             <button
@@ -100,19 +138,23 @@ export default function AllResultsPage() {
           </div>
 
           {/* Normal levels header */}
-          <div className="mt-8 flex items-baseline justify-between border-b-2 border-ink pb-2">
-            <h2 className="font-serif text-[1.375rem] font-semibold leading-snug text-ink">
-              Normal
-            </h2>
-            <span className="font-serif text-[1.125rem] font-bold text-muted">
-              5
-            </span>
-          </div>
-          <div>
-            {normalResults.map((r) => (
-              <ResultRow key={r.id} result={r} showBar={false} />
-            ))}
-          </div>
+          {!onlyNeedsLook && (
+            <>
+              <div className="mt-8 flex items-baseline justify-between border-b-2 border-ink pb-2">
+                <h2 className="font-serif text-[1.375rem] font-semibold leading-snug text-ink">
+                  Normal
+                </h2>
+                <span className="font-serif text-[1.125rem] font-bold text-muted">
+                  5
+                </span>
+              </div>
+              <div>
+                {normalResults.map((r) => (
+                  <ResultRow key={r.id} result={r} showBar={false} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
 
@@ -155,7 +197,7 @@ export default function AllResultsPage() {
       )}
 
       {/* Normal Tab */}
-      {activeTab === "normal" && (
+      {activeTab === "normal" && !onlyNeedsLook && (
         <div className="mt-6">
           <div className="flex items-baseline justify-between border-b-2 border-ink pb-2">
             <h2 className="font-serif text-[1.375rem] font-semibold leading-snug text-ink">
